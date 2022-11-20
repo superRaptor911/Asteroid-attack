@@ -12,12 +12,12 @@
     "sourceMap": true,
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
-    "noImplicitReturns": true,
+    "noImplicitReturns": false,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noImplicitAny": false,
     "noImplicitThis": false,
-    "strictNullChecks": false
+    "strictNullChecks": true
   },
   "include": ["src/**/*", "__tests__/**/*"]
 }

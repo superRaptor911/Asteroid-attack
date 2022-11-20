@@ -13,24 +13,32 @@ if &shortmess =~ 'A'
 else
   set shortmess=aoO
 endif
-badd +9 index.html
-badd +1 src/main.ts
+badd +11 index.html
+badd +15 src/main.ts
 badd +3 style.css
 badd +1 src/scenes/testCubes.ts
 badd +23 src/engine/Node.ts
 badd +15 src/scenes/TeturedCube.ts
-badd +19 src/engine/TextureMan.ts
+badd +17 src/engine/TextureMan.ts
+badd +8 src/game.ts
 argglobal
 %argdel
-edit src/engine/TextureMan.ts
+edit src/game.ts
+wincmd t
+let s:save_winminheight = &winminheight
+let s:save_winminwidth = &winminwidth
+set winminheight=0
+set winheight=1
+set winminwidth=0
+set winwidth=1
 argglobal
 balt src/main.ts
-let s:l = 16 - ((15 * winheight(0) + 21) / 43)
+let s:l = 8 - ((7 * winheight(0) + 20) / 41)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 16
-normal! 027|
+keepjumps 8
+normal! 018|
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
@@ -38,6 +46,8 @@ endif
 unlet! s:wipebuf
 set winheight=1 winwidth=20
 let &shortmess = s:shortmess_save
+let &winminheight = s:save_winminheight
+let &winminwidth = s:save_winminwidth
 let s:sx = expand("<sfile>:p:r")."x.vim"
 if filereadable(s:sx)
   exe "source " . fnameescape(s:sx)
