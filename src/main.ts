@@ -1,6 +1,6 @@
 import * as THREE from 'three';
+import { TestCubesScene } from './scenes/testCubes';
 
-const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(
   75,
   window.innerWidth / window.innerHeight,
@@ -9,30 +9,21 @@ const camera = new THREE.PerspectiveCamera(
 );
 
 const renderer = new THREE.WebGLRenderer();
-renderer.setSize(800, 600);
+renderer.setSize(1280, 720);
 document.body.appendChild(renderer.domElement);
-
-const geometry = new THREE.BoxGeometry(1, 1, 1);
-const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-const cube = new THREE.Mesh(geometry, material);
-scene.add(cube);
 
 camera.position.z = 5;
 
+const testCubes = new TestCubesScene();
+const testCubes2 = new TestCubesScene();
+
+testCubes.addChild(testCubes2);
+testCubes2.scene.position.x = 3;
+
 function animate(): void {
-  render();
+  testCubes.update();
   requestAnimationFrame(animate);
-  renderer.render(scene, camera);
+  renderer.render(testCubes.scene, camera);
 }
-
-const render = (): void => {
-  cube.rotation.x += 0.01;
-  cube.rotation.y += 0.01;
-};
-
-setTimeout(() => {
-  console.log('dispose');
-  geometry.dispose();
-}, 2000);
 
 animate();
