@@ -13,32 +13,26 @@ if &shortmess =~ 'A'
 else
   set shortmess=aoO
 endif
-badd +11 index.html
-badd +15 src/main.ts
-badd +3 style.css
+badd +5 index.html
+badd +5 src/main.ts
 badd +1 src/scenes/testCubes.ts
-badd +23 src/engine/Node.ts
-badd +15 src/scenes/TeturedCube.ts
+badd +1 src/engine/Node.ts
+badd +29 src/scenes/TeturedCube.ts
 badd +17 src/engine/TextureMan.ts
-badd +8 src/game.ts
+badd +5 src/game.ts
+badd +42 src/scenes/testMenu.ts
+badd +15 src/style.css
 argglobal
 %argdel
-edit src/game.ts
-wincmd t
-let s:save_winminheight = &winminheight
-let s:save_winminwidth = &winminwidth
-set winminheight=0
-set winheight=1
-set winminwidth=0
-set winwidth=1
+edit src/scenes/testMenu.ts
 argglobal
-balt src/main.ts
-let s:l = 8 - ((7 * winheight(0) + 20) / 41)
+balt src/scenes/TeturedCube.ts
+let s:l = 9 - ((6 * winheight(0) + 20) / 40)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 8
-normal! 018|
+keepjumps 9
+normal! 03|
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
@@ -46,15 +40,12 @@ endif
 unlet! s:wipebuf
 set winheight=1 winwidth=20
 let &shortmess = s:shortmess_save
-let &winminheight = s:save_winminheight
-let &winminwidth = s:save_winminwidth
 let s:sx = expand("<sfile>:p:r")."x.vim"
 if filereadable(s:sx)
   exe "source " . fnameescape(s:sx)
 endif
 let &g:so = s:so_save | let &g:siso = s:siso_save
 set hlsearch
-nohlsearch
 doautoall SessionLoadPost
 unlet SessionLoad
 " vim: set ft=vim :

@@ -5,6 +5,7 @@ export class TestMenuScene extends SceneNode {
   showTexButton: HTMLButtonElement;
   hideTexButton: HTMLButtonElement;
   texturedCube: SceneNode;
+
   constructor() {
     super();
     this.showTexButton = document.createElement('button');
