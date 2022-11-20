@@ -14,19 +14,23 @@ else
   set shortmess=aoO
 endif
 badd +9 index.html
-badd +34 src/main.ts
+badd +1 src/main.ts
 badd +3 style.css
+badd +1 src/scenes/testCubes.ts
+badd +23 src/engine/Node.ts
+badd +15 src/scenes/TeturedCube.ts
+badd +19 src/engine/TextureMan.ts
 argglobal
 %argdel
-edit src/main.ts
+edit src/engine/TextureMan.ts
 argglobal
-balt index.html
-let s:l = 4 - ((3 * winheight(0) + 20) / 40)
+balt src/main.ts
+let s:l = 16 - ((15 * winheight(0) + 21) / 43)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 4
-normal! 012|
+keepjumps 16
+normal! 027|
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
