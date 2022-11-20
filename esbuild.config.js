@@ -11,6 +11,7 @@ import esbuildMxnCopy from 'esbuild-plugin-mxn-copy';
         copy: [
           // You can include files & directories
           { from: 'src/assets', to: 'build/assets' },
+          { from: 'src/style.css', to: 'build/' },
         ],
         verbose: true,
       }),

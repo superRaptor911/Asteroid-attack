@@ -17,11 +17,21 @@
     "eslint": "~8.24",
     "eslint-config-prettier": "~8.5",
     "eslint-plugin-jest": "~27.1",
+    "npm-watch": "^0.11.0",
     "prettier": "~2.7",
     "rimraf": "~3.0",
     "serve": "^14.1.2",
     "tsutils": "~3.21",
     "typescript": "~4.8"
+  },
+  "watch": {
+    "build": {
+      "patterns": [
+        "src"
+      ],
+      "extensions": "ts,css",
+      "quiet": true
+    }
   },
   "scripts": {
     "start": "serve",
@@ -29,7 +39,8 @@
     "clean": "rimraf coverage build tmp",
     "build": "node esbuild.config.js",
     "lint": "eslint . --ext .ts --ext .mts",
-    "prettier": "prettier --config .prettierrc --write ."
+    "prettier": "prettier --config .prettierrc --write .",
+    "watch": "npm-watch"
   },
   "author": "superRaptor911",
   "license": "Apache-2.0",
