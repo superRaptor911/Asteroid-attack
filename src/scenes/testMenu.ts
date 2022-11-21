@@ -1,43 +1,67 @@
 import { SceneNode } from '../engine/Node';
+import * as THREE from 'three';
 import { TexturedCubeScene } from './TeturedCube';
+import { getRootScene } from '../game';
 
 export class TestMenuScene extends SceneNode {
-  showTexButton: HTMLButtonElement;
-  hideTexButton: HTMLButtonElement;
-  texturedCube: SceneNode;
+  showButton: HTMLButtonElement;
+  hideButton: HTMLButtonElement;
+  texturedCubes: SceneNode[] = [];
 
   constructor() {
     super();
-    this.showTexButton = document.createElement('button');
-    this.showTexButton.innerText = 'Show Textured Cube';
-    this.showTexButton.className = 'showTexButton';
-    this.showTexButton.onclick = this.handleShowTexClick;
+    this.showButton = document.createElement('button');
+    this.showButton.innerText = 'Show Textured Cube';
+    this.showButton.className = 'showTexButton';
+    this.showButton.onclick = this.handleShowTexClick;
 
-    this.hideTexButton = document.createElement('button');
-    this.hideTexButton.innerText = 'Hide Textured Cube';
-    this.hideTexButton.className = 'hideTexButton';
-    this.hideTexButton.onclick = this.handleHideTexClick;
-    this.hideTexButton.disabled = true;
+    this.hideButton = document.createElement('button');
+    this.hideButton.innerText = 'Hide Textured Cube';
+    this.hideButton.className = 'hideTexButton';
+    this.hideButton.onclick = this.handleHideTexClick;
+    this.hideButton.disabled = true;
 
     const gameDiv = document.getElementById('game');
     if (!gameDiv) {
       console.error("testMenu::constructor: Couldn't find game div");
       return;
     }
-    gameDiv.appendChild(this.showTexButton);
-    gameDiv.appendChild(this.hideTexButton);
-    this.texturedCube = new TexturedCubeScene();
+    gameDiv.appendChild(this.showButton);
+    gameDiv.appendChild(this.hideButton);
+
+    for (let i = 0; i < 10; i++) {
+      const cube = new TexturedCubeScene();
+      cube.scene.position.z = -i * 10;
+      cube.scene.position.x = i * 10 - 8;
+      this.texturedCubes.push(cube);
+    }
+  }
+
+  onReady(): void {
+    if (this.parent) {
+      this.parent.scene.fog = new THREE.Fog(0xffffff, 0, 50);
+      this.parent.scene.background = new THREE.Color(0xffffff);
+    }
   }
 
   handleShowTexClick = (): void => {
-    this.addChild(this.texturedCube);
-    this.showTexButton.disabled = true;
-    this.hideTexButton.disabled = false;
+    this.texturedCubes.forEach((cube) => {
+      this.addChild(cube);
+    });
+    this.showButton.disabled = true;
+    this.hideButton.disabled = false;
   };
 
   handleHideTexClick = (): void => {
-    this.showTexButton.disabled = false;
-    this.removeChild(this.texturedCube);
-    this.hideTexButton.disabled = true;
+    this.showButton.disabled = false;
+    this.hideButton.disabled = true;
+
+    this.texturedCubes.forEach((cube) => {
+      this.removeChild(cube);
+    });
   };
+
+  update(delta: number): void {
+    super.update(delta);
+  }
 }

@@ -37,8 +37,11 @@ export const getScreenSize = (): { width: number; height: number } => ({
 });
 
 export const startGame = (): void => {
+  const clock = new THREE.Clock();
+  let delta = 0;
   function animate(): void {
-    rootScene.update();
+    delta = clock.getDelta();
+    rootScene.update(delta);
     requestAnimationFrame(animate);
     renderer.render(rootScene.scene, camera);
   }

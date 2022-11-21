@@ -7,20 +7,26 @@ export class TexturedCubeScene extends SceneNode {
   material: THREE.MeshBasicMaterial;
   cube: THREE.Mesh;
   texture: THREE.Texture;
+  speed = 4;
 
   constructor() {
     super();
     this.geometry = new THREE.BoxGeometry(1, 1, 1);
     this.texture = getTexture('crate');
-    this.material = new THREE.MeshBasicMaterial({ map: this.texture });
+    this.material = new THREE.MeshBasicMaterial({
+      map: this.texture,
+    });
     this.cube = new THREE.Mesh(this.geometry, this.material);
     this.scene.add(this.cube);
   }
 
-  update(): void {
-    super.update();
-    this.cube.rotation.x += 0.01;
-    this.cube.rotation.y += 0.01;
+  update(delta: number): void {
+    super.update(delta);
+    this.scene.position.z += this.speed * delta;
+
+    if (this.scene.position.z > 5) {
+      this.scene.position.z = -40;
+    }
   }
 
   destroy(): void {

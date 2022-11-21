@@ -37,8 +37,8 @@ export class SceneNode {
     }
   }
 
-  update(): void {
-    this.children.forEach((child) => child.update());
+  update(delta: number): void {
+    this.children.forEach((child) => child.update(delta));
   }
 
   destroy(): void {
