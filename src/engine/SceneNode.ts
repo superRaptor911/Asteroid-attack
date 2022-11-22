@@ -14,8 +14,8 @@ export class SceneNode extends BaseNode {
     super.addChild(child);
   }
 
-  removeChild(child: SceneNode): void {
-    if (child.parent === this) {
+  removeChild(child: SceneNode | BaseNode): void {
+    if (child.parent === this && child instanceof SceneNode) {
       this.scene.remove(child.scene);
     }
     super.removeChild(child);

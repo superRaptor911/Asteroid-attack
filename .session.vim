@@ -15,25 +15,25 @@ else
 endif
 badd +5 index.html
 badd +5 src/main.ts
-badd +1 src/scenes/testCubes.ts
-badd +47 src/engine/Node.ts
-badd +29 src/scenes/TeturedCube.ts
-badd +17 src/engine/TextureMan.ts
-badd +5 src/game.ts
-badd +48 src/scenes/testMenu.ts
+badd +12 src/engine/SceneNode.ts
+badd +16 src/scenes/TeturedCube.ts
+badd +16 src/engine/TextureMan.ts
+badd +10 src/game.ts
+badd +9 src/scenes/testMenu.ts
 badd +15 src/style.css
-badd +9 src/scenes/fpsCounter.ts
+badd +16 src/scenes/fpsCounter.ts
+badd +1 src/engine/BaseNode.ts
 argglobal
 %argdel
-edit src/engine/Node.ts
+edit src/engine/BaseNode.ts
 argglobal
-balt src/scenes/testMenu.ts
-let s:l = 19 - ((18 * winheight(0) + 21) / 43)
+balt src/engine/SceneNode.ts
+let s:l = 28 - ((27 * winheight(0) + 21) / 43)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 19
-normal! 03|
+keepjumps 28
+normal! 0
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf

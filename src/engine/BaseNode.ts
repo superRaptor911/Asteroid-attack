@@ -26,6 +26,14 @@ export class BaseNode {
     this._name = name;
   }
 
+  get path(): string {
+    let path = this.name;
+    if (this.parent) {
+      path = this.parent.path + '/' + path;
+    }
+    return path;
+  }
+
   addChild(child: BaseNode): void {
     if (child.parent !== null) {
       child.parent.removeChild(child);
@@ -48,8 +56,12 @@ export class BaseNode {
     if (indexOf === -1) {
       return this._childMap[name] || null;
     }
-    const childName = name.substring(indexOf);
-    return this._childMap[childName].getChild(name.substring(indexOf + 1));
+    const childName = name.substring(0, indexOf);
+    const child = this._childMap[childName];
+    if (child) {
+      return child.getChild(name.substring(indexOf + 1));
+    }
+    return null;
   }
 
   onReady(): void {
