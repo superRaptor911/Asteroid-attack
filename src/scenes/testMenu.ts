@@ -1,12 +1,12 @@
 import { SceneNode } from '../engine/Node';
 import * as THREE from 'three';
 import { TexturedCubeScene } from './TeturedCube';
-import { getRootScene } from '../game';
 
 export class TestMenuScene extends SceneNode {
   showButton: HTMLButtonElement;
   hideButton: HTMLButtonElement;
   texturedCubes: SceneNode[] = [];
+  fpsLabel: HTMLLabelElement;
 
   constructor() {
     super();
@@ -20,6 +20,8 @@ export class TestMenuScene extends SceneNode {
     this.hideButton.className = 'hideTexButton';
     this.hideButton.onclick = this.handleHideTexClick;
     this.hideButton.disabled = true;
+    this.fpsLabel = document.createElement('label');
+    this.fpsLabel.className = 'fpsLabel';
 
     const gameDiv = document.getElementById('game');
     if (!gameDiv) {
@@ -28,6 +30,7 @@ export class TestMenuScene extends SceneNode {
     }
     gameDiv.appendChild(this.showButton);
     gameDiv.appendChild(this.hideButton);
+    gameDiv.appendChild(this.fpsLabel);
 
     for (let i = 0; i < 10; i++) {
       const cube = new TexturedCubeScene();
@@ -63,5 +66,6 @@ export class TestMenuScene extends SceneNode {
 
   update(delta: number): void {
     super.update(delta);
+    this.fpsLabel.innerText = `FPS: ${Math.round(1 / delta)}`;
   }
 }

@@ -26,6 +26,8 @@ export class TexturedCubeScene extends SceneNode {
 
     if (this.scene.position.z > 5) {
       this.scene.position.z = -40;
+      this.scene.position.x = Math.random() * 40 - 20;
+      this.scene.position.y = Math.random() * 40 - 20;
     }
   }
 

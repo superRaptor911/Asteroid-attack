@@ -27,3 +27,9 @@ body {
     cursor: pointer;
     padding: 10px;
 }
+
+.fpsLabel {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
