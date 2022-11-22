@@ -1,5 +1,4 @@
 import { BaseNode } from '../engine/BaseNode';
-import { getRootScene } from '../game';
 
 export class FpsCounterScene extends BaseNode {
   label: HTMLLabelElement;
@@ -16,11 +15,6 @@ export class FpsCounterScene extends BaseNode {
   onReady(): void {
     this.label.innerText = '0 fps';
     this.intervalId = setInterval(() => this.onOneSecond(), 1000);
-    console.log('FpsCounterScene ready path:', this.path);
-    console.log(
-      'FpsCounterScene :',
-      getRootScene().getChild('SceneNode/FpsCounterScene'),
-    );
   }
 
   update(dt: number): void {
