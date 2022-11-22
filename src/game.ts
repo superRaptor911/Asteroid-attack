@@ -1,13 +1,15 @@
 import * as THREE from 'three';
+import { KeyboardInput } from './engine/KeyboardInput';
 import { SceneNode } from './engine/SceneNode';
 import { loadTextures } from './engine/TextureMan';
 
 const gameDiv = document.getElementById('game');
-let Width = gameDiv ? gameDiv.clientWidth : 800;
-let Height = gameDiv ? gameDiv.clientHeight : 600;
+let Width = gameDiv?.clientWidth ?? 800;
+let Height = gameDiv?.clientHeight ?? 600;
 
 const renderer = new THREE.WebGLRenderer();
 const camera = new THREE.PerspectiveCamera(75, Width / Height, 0.1, 1000);
+const keyboardInput = new KeyboardInput();
 const rootScene = new SceneNode();
 
 export const initGame = (): void => {
@@ -35,6 +37,7 @@ export const getScreenSize = (): { width: number; height: number } => ({
   width: Width,
   height: Height,
 });
+export const getKeyboardInput = (): KeyboardInput => keyboardInput;
 
 export const startGame = (): void => {
   const clock = new THREE.Clock();

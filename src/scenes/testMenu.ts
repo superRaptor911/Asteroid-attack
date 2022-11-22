@@ -3,13 +3,16 @@ import * as THREE from 'three';
 import { TexturedCubeScene } from './TeturedCube';
 import { FpsCounterScene } from './fpsCounter';
 import { BaseNode } from '../engine/BaseNode';
-import { getRootScene } from '../game';
+import { getCamera, getKeyboardInput, getRootScene } from '../game';
+import { KeyboardInput } from '../engine/KeyboardInput';
 
 export class TestMenuScene extends SceneNode {
   showButton: HTMLButtonElement;
   hideButton: HTMLButtonElement;
   texturedCubes: SceneNode[] = [];
   fpsCounter: BaseNode;
+  camera: THREE.PerspectiveCamera;
+  keyboardInput: KeyboardInput;
 
   constructor() {
     super();
@@ -40,6 +43,8 @@ export class TestMenuScene extends SceneNode {
     }
 
     this.fpsCounter = new FpsCounterScene();
+    this.camera = getCamera();
+    this.keyboardInput = getKeyboardInput();
   }
 
   onReady(): void {
@@ -67,5 +72,18 @@ export class TestMenuScene extends SceneNode {
 
   update(delta: number): void {
     super.update(delta);
+    if (this.keyboardInput.isKeyDown('a')) {
+      this.camera.position.x -= 20 * delta;
+    }
+    if (this.keyboardInput.isKeyDown('d')) {
+      this.camera.position.x += 20 * delta;
+    }
+    if (this.keyboardInput.isKeyDown('w')) {
+      this.camera.position.z += 20 * delta;
+    }
+
+    if (this.keyboardInput.isKeyDown('s')) {
+      this.camera.position.z -= 20 * delta;
+    }
   }
 }
