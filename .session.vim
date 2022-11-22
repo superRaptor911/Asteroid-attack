@@ -16,22 +16,23 @@ endif
 badd +5 index.html
 badd +5 src/main.ts
 badd +1 src/scenes/testCubes.ts
-badd +1 src/engine/Node.ts
+badd +47 src/engine/Node.ts
 badd +29 src/scenes/TeturedCube.ts
 badd +17 src/engine/TextureMan.ts
 badd +5 src/game.ts
-badd +42 src/scenes/testMenu.ts
+badd +48 src/scenes/testMenu.ts
 badd +15 src/style.css
+badd +9 src/scenes/fpsCounter.ts
 argglobal
 %argdel
-edit src/scenes/testMenu.ts
+edit src/engine/Node.ts
 argglobal
-balt src/scenes/TeturedCube.ts
-let s:l = 9 - ((6 * winheight(0) + 20) / 40)
+balt src/scenes/testMenu.ts
+let s:l = 19 - ((18 * winheight(0) + 21) / 43)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 9
+keepjumps 19
 normal! 03|
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'

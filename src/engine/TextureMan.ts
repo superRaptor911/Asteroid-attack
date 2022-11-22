@@ -13,7 +13,7 @@ export const loadTextures = (): void => {
   }
 };
 
-export const getTexture = (name: string): THREE.Texture => {
+export const getTexture = (name: string): THREE.Texture | null => {
   if (!textures[name]) {
     console.error('TextureMan::getTexture: texture not found: ' + name);
     return null;

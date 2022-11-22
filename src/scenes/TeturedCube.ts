@@ -1,12 +1,12 @@
 import * as THREE from 'three';
-import { SceneNode } from '../engine/Node';
+import { SceneNode } from '../engine/SceneNode';
 import { getTexture } from '../engine/TextureMan';
 
 export class TexturedCubeScene extends SceneNode {
   geometry: THREE.BoxGeometry;
   material: THREE.MeshBasicMaterial;
   cube: THREE.Mesh;
-  texture: THREE.Texture;
+  texture: THREE.Texture | null;
   speed = 4;
 
   constructor() {

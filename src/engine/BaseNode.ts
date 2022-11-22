@@ -1,14 +1,10 @@
-import * as THREE from 'three';
-
-export class SceneNode {
-  scene: THREE.Scene;
-  parent: SceneNode | null = null;
-  _children: SceneNode[] = [];
-  _childMap: { [key: string]: SceneNode } = {};
+export class BaseNode {
+  parent: BaseNode | null = null;
+  _children: BaseNode[] = [];
+  _childMap: { [key: string]: BaseNode } = {};
   _name = '';
 
   constructor(name = '') {
-    this.scene = new THREE.Scene();
     this._name = name;
   }
 
@@ -30,7 +26,7 @@ export class SceneNode {
     this._name = name;
   }
 
-  addChild(child: SceneNode): void {
+  addChild(child: BaseNode): void {
     if (child.parent !== null) {
       child.parent.removeChild(child);
     }
@@ -44,11 +40,10 @@ export class SceneNode {
     this._childMap[child._name] = child; // Add to child map
     this._children.push(child); // Add to children array
 
-    this.scene.add(child.scene);
     child.onReady();
   }
 
-  getChild(name: string): SceneNode | null {
+  getChild(name: string): BaseNode | null {
     const indexOf = name.indexOf('/');
     if (indexOf === -1) {
       return this._childMap[name] || null;
@@ -65,9 +60,8 @@ export class SceneNode {
     // Override this method to do something when the node is removed from the scene
   }
 
-  removeChild(child: SceneNode): void {
+  removeChild(child: BaseNode): void {
     if (child.parent === this) {
-      this.scene.remove(child.scene);
       child.parent = null;
       delete this._childMap[child._name];
       this._children.splice(this._children.indexOf(child), 1);

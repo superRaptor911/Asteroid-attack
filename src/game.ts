@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { SceneNode } from './engine/Node';
+import { SceneNode } from './engine/SceneNode';
 import { loadTextures } from './engine/TextureMan';
 
 const gameDiv = document.getElementById('game');

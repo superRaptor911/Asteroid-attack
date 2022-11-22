@@ -1,12 +1,15 @@
-import { SceneNode } from '../engine/Node';
+import { SceneNode } from '../engine/SceneNode';
 import * as THREE from 'three';
 import { TexturedCubeScene } from './TeturedCube';
+import { FpsCounterScene } from './fpsCounter';
+import { BaseNode } from '../engine/BaseNode';
+import { getRootScene } from '../game';
 
 export class TestMenuScene extends SceneNode {
   showButton: HTMLButtonElement;
   hideButton: HTMLButtonElement;
   texturedCubes: SceneNode[] = [];
-  fpsLabel: HTMLLabelElement;
+  fpsCounter: BaseNode;
 
   constructor() {
     super();
@@ -20,8 +23,6 @@ export class TestMenuScene extends SceneNode {
     this.hideButton.className = 'hideTexButton';
     this.hideButton.onclick = this.handleHideTexClick;
     this.hideButton.disabled = true;
-    this.fpsLabel = document.createElement('label');
-    this.fpsLabel.className = 'fpsLabel';
 
     const gameDiv = document.getElementById('game');
     if (!gameDiv) {
@@ -30,7 +31,6 @@ export class TestMenuScene extends SceneNode {
     }
     gameDiv.appendChild(this.showButton);
     gameDiv.appendChild(this.hideButton);
-    gameDiv.appendChild(this.fpsLabel);
 
     for (let i = 0; i < 10; i++) {
       const cube = new TexturedCubeScene();
@@ -38,13 +38,14 @@ export class TestMenuScene extends SceneNode {
       cube.scene.position.x = i * 10 - 8;
       this.texturedCubes.push(cube);
     }
+
+    this.fpsCounter = new FpsCounterScene();
   }
 
   onReady(): void {
-    if (this.parent) {
-      this.parent.scene.fog = new THREE.Fog(0xffffff, 0, 50);
-      this.parent.scene.background = new THREE.Color(0xffffff);
-    }
+    getRootScene().scene.fog = new THREE.Fog(0xffffff, 0, 50);
+    getRootScene().scene.background = new THREE.Color(0xffffff);
+    this.addChild(this.fpsCounter);
   }
 
   handleShowTexClick = (): void => {
@@ -66,6 +67,5 @@ export class TestMenuScene extends SceneNode {
 
   update(delta: number): void {
     super.update(delta);
-    this.fpsLabel.innerText = `FPS: ${Math.round(1 / delta)}`;
   }
 }
