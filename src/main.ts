@@ -1,6 +1,6 @@
 import { getRootScene, initGame, startGame } from './game';
-import { TestMenuScene } from './scenes/testMenu';
+import { MainMenu } from './scenes/mainmenu/mainmenu';
 
 initGame();
-getRootScene().addChild(new TestMenuScene());
+getRootScene().addChild(new MainMenu());
 startGame();

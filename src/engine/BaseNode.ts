@@ -76,8 +76,10 @@ export class BaseNode {
     if (child.parent === this) {
       child.parent = null;
       delete this._childMap[child._name];
-      this._children.splice(this._children.indexOf(child), 1);
+      this._children = this._children.filter((c) => c !== child);
       child.onRemove();
+    } else {
+      console.warn(`Child ${child.path} is not a child of ${this.path}`);
     }
   }
 
