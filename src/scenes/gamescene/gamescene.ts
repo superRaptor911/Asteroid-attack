@@ -1,15 +1,13 @@
-import { SceneNode } from '../engine/SceneNode';
 import * as THREE from 'three';
-import { TexturedCubeScene } from './TeturedCube';
-import { FpsCounterScene } from './fpsCounter';
-import { BaseNode } from '../engine/BaseNode';
-import { getCamera, getKeyboardInput, getRootScene } from '../game';
-import { KeyboardInput } from '../engine/KeyboardInput';
-import { UIProgressBar } from '../engine/ui/ProgressBar';
+import { BaseNode } from '../../engine/BaseNode';
+import { KeyboardInput } from '../../engine/KeyboardInput';
+import { SceneNode } from '../../engine/SceneNode';
+import { UIProgressBar } from '../../engine/ui/ProgressBar';
+import { getCamera, getKeyboardInput, getRootScene } from '../../game';
+import { FpsCounterScene } from '../fpsCounter';
+import { TexturedCubeScene } from '../TeturedCube';
 
-export class TestMenuScene extends SceneNode {
-  showButton: HTMLButtonElement;
-  hideButton: HTMLButtonElement;
+export class GameScene extends SceneNode {
   texturedCubes: SceneNode[] = [];
   fpsCounter: BaseNode;
   camera: THREE.PerspectiveCamera;
@@ -17,25 +15,7 @@ export class TestMenuScene extends SceneNode {
   movesLeftBar = new UIProgressBar();
 
   constructor() {
-    super();
-    this.showButton = document.createElement('button');
-    this.showButton.innerText = 'Show Textured Cube';
-    this.showButton.className = 'showTexButton';
-    this.showButton.onclick = this.handleShowTexClick;
-
-    this.hideButton = document.createElement('button');
-    this.hideButton.innerText = 'Hide Textured Cube';
-    this.hideButton.className = 'hideTexButton';
-    this.hideButton.onclick = this.handleHideTexClick;
-    this.hideButton.disabled = true;
-
-    const gameDiv = document.getElementById('game');
-    if (!gameDiv) {
-      console.error("testMenu::constructor: Couldn't find game div");
-      return;
-    }
-    gameDiv.appendChild(this.showButton);
-    gameDiv.appendChild(this.hideButton);
+    super('GameScene');
 
     for (let i = 0; i < 20; i++) {
       const cube = new TexturedCubeScene();
@@ -56,24 +36,11 @@ export class TestMenuScene extends SceneNode {
     this.movesLeftBar.mount();
     this.movesLeftBar.setClass('movesLeftBar');
     this.movesLeftBar.value = 100;
-  }
 
-  handleShowTexClick = (): void => {
     this.texturedCubes.forEach((cube) => {
       this.addChild(cube);
     });
-    this.showButton.disabled = true;
-    this.hideButton.disabled = false;
-  };
-
-  handleHideTexClick = (): void => {
-    this.showButton.disabled = false;
-    this.hideButton.disabled = true;
-
-    this.texturedCubes.forEach((cube) => {
-      this.removeChild(cube);
-    });
-  };
+  }
 
   update(delta: number): void {
     super.update(delta);

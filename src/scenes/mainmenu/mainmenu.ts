@@ -1,6 +1,6 @@
 import { SceneNode } from '../../engine/SceneNode';
 import { UIButton } from '../../engine/ui/Button';
-import { TestMenuScene } from '../testMenu';
+import { GameScene } from '../gamescene/gamescene';
 
 export class MainMenu extends SceneNode {
   newGameButton: UIButton;
@@ -27,8 +27,8 @@ export class MainMenu extends SceneNode {
   }
 
   onNewGame(): void {
-    const testMenuScene = new TestMenuScene();
-    this.parent?.addChild(testMenuScene);
+    const gameScene = new GameScene();
+    this.parent?.addChild(gameScene);
     this.parent?.removeChild(this);
   }
 }
