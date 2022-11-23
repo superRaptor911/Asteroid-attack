@@ -10,6 +10,7 @@ let Height = gameDiv?.clientHeight ?? 600;
 const renderer = new THREE.WebGLRenderer();
 const camera = new THREE.PerspectiveCamera(75, Width / Height, 0.1, 1000);
 const keyboardInput = new KeyboardInput();
+const clock = new THREE.Clock();
 const rootScene = new SceneNode();
 
 export const initGame = (): void => {
@@ -38,9 +39,9 @@ export const getScreenSize = (): { width: number; height: number } => ({
   height: Height,
 });
 export const getKeyboardInput = (): KeyboardInput => keyboardInput;
+export const getClock = (): THREE.Clock => clock;
 
 export const startGame = (): void => {
-  const clock = new THREE.Clock();
   let delta = 0;
   function animate(): void {
     delta = clock.getDelta();

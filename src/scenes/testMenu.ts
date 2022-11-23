@@ -5,6 +5,7 @@ import { FpsCounterScene } from './fpsCounter';
 import { BaseNode } from '../engine/BaseNode';
 import { getCamera, getKeyboardInput, getRootScene } from '../game';
 import { KeyboardInput } from '../engine/KeyboardInput';
+import { UIProgressBar } from '../engine/ui/ProgressBar';
 
 export class TestMenuScene extends SceneNode {
   showButton: HTMLButtonElement;
@@ -13,6 +14,7 @@ export class TestMenuScene extends SceneNode {
   fpsCounter: BaseNode;
   camera: THREE.PerspectiveCamera;
   keyboardInput: KeyboardInput;
+  movesLeftBar = new UIProgressBar();
 
   constructor() {
     super();
@@ -51,6 +53,9 @@ export class TestMenuScene extends SceneNode {
     getRootScene().scene.fog = new THREE.Fog(0xffffff, 0, 50);
     getRootScene().scene.background = new THREE.Color(0xffffff);
     this.addChild(this.fpsCounter);
+    this.movesLeftBar.mount();
+    this.movesLeftBar.setClass('movesLeftBar');
+    this.movesLeftBar.value = 100;
   }
 
   handleShowTexClick = (): void => {
@@ -74,16 +79,20 @@ export class TestMenuScene extends SceneNode {
     super.update(delta);
     if (this.keyboardInput.isKeyDown('a')) {
       this.camera.position.x -= 20 * delta;
+      this.movesLeftBar.value -= 40 * delta;
     }
     if (this.keyboardInput.isKeyDown('d')) {
       this.camera.position.x += 20 * delta;
+      this.movesLeftBar.value -= 40 * delta;
     }
     if (this.keyboardInput.isKeyDown('w')) {
       this.camera.position.y += 20 * delta;
+      this.movesLeftBar.value -= 40 * delta;
     }
 
     if (this.keyboardInput.isKeyDown('s')) {
       this.camera.position.y -= 20 * delta;
+      this.movesLeftBar.value -= 40 * delta;
     }
   }
 }

@@ -33,3 +33,10 @@ body {
     top: 0px;
     left: 0px;
 }
+
+.movesLeftBar {
+    position: absolute;
+    top: calc(100% - 50px);
+    left: calc(50% - 100px);
+    width: 200px;
+}

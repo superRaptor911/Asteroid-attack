@@ -15,34 +15,29 @@ else
 endif
 badd +5 index.html
 badd +5 src/main.ts
-badd +2 src/engine/SceneNode.ts
-badd +25 src/scenes/TeturedCube.ts
+badd +19 src/engine/SceneNode.ts
+badd +37 src/scenes/TeturedCube.ts
 badd +1 src/engine/TextureMan.ts
-badd +50 src/game.ts
-badd +76 src/scenes/testMenu.ts
-badd +15 src/style.css
-badd +4 src/scenes/fpsCounter.ts
+badd +42 src/game.ts
+badd +96 src/scenes/testMenu.ts
+badd +39 src/style.css
+badd +15 src/scenes/fpsCounter.ts
 badd +1 src/engine/BaseNode.ts
 badd +40 src/engine/KeyboardInput.ts
-badd +16 src/engine/UINode.ts
+badd +21 src/engine/UI.ts
+badd +1 src/engine/utils.ts
+badd +23 src/engine/ui/ProgressBar.ts
 argglobal
 %argdel
-edit src/engine/UINode.ts
-wincmd t
-let s:save_winminheight = &winminheight
-let s:save_winminwidth = &winminwidth
-set winminheight=0
-set winheight=1
-set winminwidth=0
-set winwidth=1
+edit src/scenes/testMenu.ts
 argglobal
-balt src/engine/BaseNode.ts
-let s:l = 16 - ((15 * winheight(0) + 21) / 43)
+balt src/game.ts
+let s:l = 1 - ((0 * winheight(0) + 21) / 43)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 16
-normal! 017|
+keepjumps 1
+normal! 05|
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
@@ -50,8 +45,6 @@ endif
 unlet! s:wipebuf
 set winheight=1 winwidth=20
 let &shortmess = s:shortmess_save
-let &winminheight = s:save_winminheight
-let &winminwidth = s:save_winminwidth
 let s:sx = expand("<sfile>:p:r")."x.vim"
 if filereadable(s:sx)
   exe "source " . fnameescape(s:sx)
