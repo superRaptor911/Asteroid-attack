@@ -42,12 +42,27 @@ export class UI {
   unmount(): void {
     if (this.parent) {
       this.parent.removeChild(this.element);
-      this.parent.removeChild(this.element);
       this.parent = null;
     }
   }
 
+  hide(): void {
+    this.element.style.display = 'none';
+  }
+
+  show(): void {
+    this.element.style.display = 'block';
+  }
+
   setOnClick(callback: (e: MouseEvent) => void): void {
     this.element.onclick = callback;
+  }
+
+  setOnMouseOver(callback: (e: MouseEvent) => void): void {
+    this.element.onmouseover = callback;
+  }
+
+  setOnMouseOut(callback: (e: MouseEvent) => void): void {
+    this.element.onmouseout = callback;
   }
 }
