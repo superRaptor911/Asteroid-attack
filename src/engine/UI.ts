@@ -12,6 +12,14 @@ export class UI {
     this.element.innerText = text;
   }
 
+  setClass(className: string): void {
+    this.element.className = className;
+  }
+
+  setId(id: string): void {
+    this.element.id = id;
+  }
+
   setStyle(style: Partial<CSSStyleDeclaration>): void {
     for (const key in style) {
       const value = style[key];
