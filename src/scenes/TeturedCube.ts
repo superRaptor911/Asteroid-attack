@@ -1,13 +1,16 @@
 import * as THREE from 'three';
 import { SceneNode } from '../engine/SceneNode';
 import { getTexture } from '../engine/TextureMan';
+import { randRange } from '../engine/utils';
+import { getCamera } from '../game';
 
 export class TexturedCubeScene extends SceneNode {
   geometry: THREE.BoxGeometry;
   material: THREE.MeshBasicMaterial;
   cube: THREE.Mesh;
   texture: THREE.Texture | null;
-  speed = 4;
+  speed = 8;
+  camera: THREE.PerspectiveCamera;
 
   constructor() {
     super();
@@ -18,6 +21,7 @@ export class TexturedCubeScene extends SceneNode {
     });
     this.cube = new THREE.Mesh(this.geometry, this.material);
     this.scene.add(this.cube);
+    this.camera = getCamera();
   }
 
   update(delta: number): void {
@@ -25,9 +29,12 @@ export class TexturedCubeScene extends SceneNode {
     this.scene.position.z += this.speed * delta;
 
     if (this.scene.position.z > 5) {
-      this.scene.position.z = -40;
-      this.scene.position.x = Math.random() * 40 - 20;
-      this.scene.position.y = Math.random() * 40 - 20;
+      this.speed = randRange(8, 24);
+      this.scene.position.z = -50;
+
+      const camPos = this.camera.position;
+      this.scene.position.x = randRange(camPos.x - 5, camPos.x + 5);
+      this.scene.position.y = randRange(camPos.y - 8, camPos.y + 8);
     }
   }
 

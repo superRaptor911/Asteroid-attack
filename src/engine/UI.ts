@@ -1,10 +1,8 @@
-type elementType = 'button' | 'label' | 'div' | 'input';
-
 export class UI {
   readonly element: HTMLElement;
   parent: HTMLElement | null = null;
 
-  constructor(type: elementType, className?: string, id?: string) {
+  constructor(type: string, className?: string, id?: string) {
     this.element = document.createElement(type);
     id && (this.element.id = id);
     className && (this.element.className = className);

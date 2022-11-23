@@ -35,7 +35,7 @@ export class TestMenuScene extends SceneNode {
     gameDiv.appendChild(this.showButton);
     gameDiv.appendChild(this.hideButton);
 
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 20; i++) {
       const cube = new TexturedCubeScene();
       cube.scene.position.z = -i * 10;
       cube.scene.position.x = i * 10 - 8;
@@ -79,11 +79,11 @@ export class TestMenuScene extends SceneNode {
       this.camera.position.x += 20 * delta;
     }
     if (this.keyboardInput.isKeyDown('w')) {
-      this.camera.position.z += 20 * delta;
+      this.camera.position.y += 20 * delta;
     }
 
     if (this.keyboardInput.isKeyDown('s')) {
-      this.camera.position.z -= 20 * delta;
+      this.camera.position.y -= 20 * delta;
     }
   }
 }
