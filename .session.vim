@@ -23,18 +23,26 @@ badd +76 src/scenes/testMenu.ts
 badd +15 src/style.css
 badd +4 src/scenes/fpsCounter.ts
 badd +1 src/engine/BaseNode.ts
-badd +30 src/engine/KeyboardInput.ts
+badd +40 src/engine/KeyboardInput.ts
+badd +16 src/engine/UINode.ts
 argglobal
 %argdel
-edit src/engine/KeyboardInput.ts
+edit src/engine/UINode.ts
+wincmd t
+let s:save_winminheight = &winminheight
+let s:save_winminwidth = &winminwidth
+set winminheight=0
+set winheight=1
+set winminwidth=0
+set winwidth=1
 argglobal
-balt src/scenes/TeturedCube.ts
-let s:l = 30 - ((21 * winheight(0) + 21) / 43)
+balt src/engine/BaseNode.ts
+let s:l = 16 - ((15 * winheight(0) + 21) / 43)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 30
-normal! 05|
+keepjumps 16
+normal! 017|
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
@@ -42,6 +50,8 @@ endif
 unlet! s:wipebuf
 set winheight=1 winwidth=20
 let &shortmess = s:shortmess_save
+let &winminheight = s:save_winminheight
+let &winminwidth = s:save_winminwidth
 let s:sx = expand("<sfile>:p:r")."x.vim"
 if filereadable(s:sx)
   exe "source " . fnameescape(s:sx)

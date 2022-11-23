@@ -1,19 +1,22 @@
 import { BaseNode } from '../engine/BaseNode';
+import { UI } from '../engine/UI';
 
 export class FpsCounterScene extends BaseNode {
-  label: HTMLLabelElement;
+  label: UI;
   frames = 0;
   intervalId: NodeJS.Timer;
 
   constructor() {
     super('FpsCounterScene');
-    this.label = document.createElement('label');
-    this.label.className = 'fpsLabel';
-    document.getElementById('game')?.appendChild(this.label);
+    this.label = new UI('label', 'fpsLabel');
+    this.label.mount();
+    this.label.setStyle({
+      color: 'red',
+    });
   }
 
   onReady(): void {
-    this.label.innerText = '0 fps';
+    this.label.setText('0 fps');
     this.intervalId = setInterval(() => this.onOneSecond(), 1000);
   }
 
@@ -23,12 +26,12 @@ export class FpsCounterScene extends BaseNode {
   }
 
   onOneSecond(): void {
-    this.label.innerText = `${this.frames} fps`;
+    this.label.setText(this.frames + ' fps');
     this.frames = 0;
   }
 
   onRemove(): void {
-    this.label.remove();
+    this.label.unmount();
     clearInterval(this.intervalId);
   }
 }
