@@ -13,6 +13,7 @@ export class FpsCounterScene extends BaseNode {
     this.label.setStyle({
       color: 'red',
     });
+    this.registerUI(this.label);
   }
 
   onReady(): void {
@@ -33,5 +34,10 @@ export class FpsCounterScene extends BaseNode {
   onRemove(): void {
     this.label.unmount();
     clearInterval(this.intervalId);
+  }
+
+  destroy(): void {
+    super.destroy();
+    this.onRemove();
   }
 }

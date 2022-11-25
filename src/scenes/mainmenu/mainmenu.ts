@@ -10,7 +10,7 @@ export class MainMenu extends SceneNode {
     this.newGameButton.setStyle({
       position: 'absolute',
       top: '50%',
-      left: '50%',
+      left: 'calc(50% - 100px)',
       width: '200px',
       fontSize: '24px',
       padding: '10px',
@@ -27,8 +27,9 @@ export class MainMenu extends SceneNode {
   }
 
   onNewGame(): void {
-    const gameScene = new GameScene();
-    this.parent?.addChild(gameScene);
-    this.parent?.removeChild(this);
+    if (this.parent) {
+      this.parent.addChild(new GameScene());
+    }
+    this.destroy();
   }
 }

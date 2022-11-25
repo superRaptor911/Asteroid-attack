@@ -40,3 +40,10 @@ body {
     left: calc(50% - 100px);
     width: 200px;
 }
+
+.scoreLabel {
+    position: absolute;
+    top: 5px;
+    left: calc(50% - 50px);
+    width: 100px;
+}
