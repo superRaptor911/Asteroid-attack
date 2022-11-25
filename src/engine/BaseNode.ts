@@ -1,8 +1,12 @@
+import { UI } from './UI';
+
 export class BaseNode {
   parent: BaseNode | null = null;
   _children: BaseNode[] = [];
   _childMap: { [key: string]: BaseNode } = {};
   _name = '';
+
+  _uiElementsRegistry: UI[] = [];
 
   constructor(name = '') {
     this._name = name;
@@ -87,8 +91,19 @@ export class BaseNode {
     this._children.forEach((child) => child.update(delta));
   }
 
+  registerUI(ui: UI): void {
+    this._uiElementsRegistry.push(ui);
+  }
+
+  unregisterUI(ui: UI): void {
+    this._uiElementsRegistry = this._uiElementsRegistry.filter((u) => u !== ui);
+  }
+
   destroy(): void {
     this._children.forEach((child) => child.destroy());
     this._children = [];
+    this._childMap = {};
+    this._uiElementsRegistry.forEach((ui) => ui.unmount());
+    this._uiElementsRegistry = [];
   }
 }
