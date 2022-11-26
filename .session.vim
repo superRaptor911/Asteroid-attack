@@ -15,31 +15,30 @@ else
 endif
 badd +5 index.html
 badd +3 src/main.ts
-badd +4 src/engine/SceneNode.ts
+badd +3 src/engine/SceneNode.ts
 badd +30 src/scenes/TeturedCube.ts
 badd +1 src/engine/TextureMan.ts
 badd +45 src/game.ts
-badd +39 src/style.css
-badd +34 src/scenes/fpsCounter.ts
-badd +72 src/engine/BaseNode.ts
+badd +46 src/style.css
+badd +7 src/scenes/fpsCounter.ts
+badd +100 src/engine/BaseNode.ts
 badd +40 src/engine/KeyboardInput.ts
-badd +44 src/engine/UI.ts
-badd +1 src/engine/utils.ts
-badd +1 src/engine/ui/ProgressBar.ts
-badd +31 src/scenes/mainmenu/mainmenu.ts
+badd +5 src/engine/UI.ts
+badd +6 src/engine/utils.ts
+badd +9 src/engine/ui/ProgressBar.ts
+badd +32 src/scenes/mainmenu/mainmenu.ts
 badd +5 src/engine/ui/Button.ts
-badd +29 src/scenes/gamescene/gamescene.ts
+badd +91 src/scenes/gamescene/gamescene.ts
 argglobal
 %argdel
-edit src/scenes/fpsCounter.ts
+edit src/engine/SceneNode.ts
 argglobal
-balt src/engine/UI.ts
-let s:l = 34 - ((33 * winheight(0) + 18) / 37)
+let s:l = 3 - ((2 * winheight(0) + 18) / 36)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 34
-normal! 025|
+keepjumps 3
+normal! 0
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
