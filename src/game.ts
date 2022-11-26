@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { KeyboardInput } from './engine/KeyboardInput';
+import { loadModels, loadTextures } from './engine/ResourceMan';
 import { SceneNode } from './engine/SceneNode';
-import { loadTextures } from './engine/TextureMan';
 
 const gameDiv = document.getElementById('game');
 let Width = gameDiv?.clientWidth ?? 800;
@@ -16,9 +16,9 @@ const rootScene = new SceneNode();
 export const initGame = (): void => {
   renderer.setSize(Width, Height);
   loadTextures();
+  loadModels();
   camera.position.z = 5;
   gameDiv?.appendChild(renderer.domElement);
-
   document.body.onresize = handleResize;
 };
 

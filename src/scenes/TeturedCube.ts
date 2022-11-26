@@ -1,6 +1,6 @@
 import * as THREE from 'three';
+import { getTexture } from '../engine/ResourceMan';
 import { SceneNode } from '../engine/SceneNode';
-import { getTexture } from '../engine/TextureMan';
 import { randRange } from '../engine/utils';
 import { getCamera } from '../game';
 import { GameScene } from './gamescene/gamescene';
