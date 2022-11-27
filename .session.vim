@@ -14,31 +14,34 @@ else
   set shortmess=aoO
 endif
 badd +5 index.html
-badd +3 src/main.ts
-badd +3 src/engine/SceneNode.ts
-badd +30 src/scenes/TeturedCube.ts
-badd +1 src/engine/TextureMan.ts
-badd +45 src/game.ts
-badd +46 src/style.css
-badd +7 src/scenes/fpsCounter.ts
+badd +2 src/main.ts
+badd +15 src/engine/SceneNode.ts
+badd +27 src/scenes/TeturedCube.ts
+badd +9 src/engine/ResourceMan.ts
+badd +13 src/game.ts
+badd +82 src/style.css
+badd +16 src/scenes/fpsCounter.ts
 badd +100 src/engine/BaseNode.ts
 badd +40 src/engine/KeyboardInput.ts
-badd +5 src/engine/UI.ts
+badd +40 src/engine/UI.ts
 badd +6 src/engine/utils.ts
 badd +9 src/engine/ui/ProgressBar.ts
-badd +32 src/scenes/mainmenu/mainmenu.ts
 badd +5 src/engine/ui/Button.ts
-badd +91 src/scenes/gamescene/gamescene.ts
+badd +81 src/scenes/gamescene/gamescene.ts
+badd +57 src/scenes/Asteroid.ts
+badd +11 src/scenes/menus/mainmenu.ts
+badd +21 src/scenes/menus/gameover.ts
 argglobal
 %argdel
-edit src/engine/SceneNode.ts
+edit src/scenes/menus/gameover.ts
 argglobal
-let s:l = 3 - ((2 * winheight(0) + 18) / 36)
+balt src/style.css
+let s:l = 22 - ((21 * winheight(0) + 18) / 37)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 3
-normal! 0
+keepjumps 22
+normal! 058|
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf

@@ -47,3 +47,37 @@ body {
     left: calc(50% - 50px);
     width: 100px;
 }
+
+.gameOverLabel {
+    position: absolute;
+    margin: 0 auto;
+    top: 20px;
+    left: 0;
+    right: 0;
+    width: max-content;
+    font-size: 26px;
+    color: red;
+}
+
+.gameOverButton {
+    position: absolute;
+    margin: 0 auto;
+    top: 50%;
+    left: 0;
+    right: 0;
+    width: 100px;
+    font-size: 26px;
+    color: black;
+    cursor: pointer;
+}
+
+.gameOverScoreLabel {
+    position: absolute;
+    margin: 0 auto;
+    top: 30%;
+    left: 0;
+    right: 0;
+    width: max-content;
+    font-size: 26px;
+    color: red;
+}

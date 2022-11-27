@@ -11,12 +11,12 @@ import {
   getKeyboardInput,
   getRootScene,
 } from '../../game';
+import { Asteroid } from '../Asteroid';
 import { FpsCounterScene } from '../fpsCounter';
-import { MainMenu } from '../mainmenu/mainmenu';
-import { TexturedCubeScene } from '../TeturedCube';
+import { GameOverMenu } from '../menus/gameover';
 
 export class GameScene extends SceneNode {
-  texturedCubes: SceneNode[] = [];
+  asteroids: SceneNode[] = [];
   fpsCounter: BaseNode;
   camera: THREE.PerspectiveCamera;
   keyboardInput: KeyboardInput;
@@ -34,10 +34,10 @@ export class GameScene extends SceneNode {
     super('GameScene');
 
     for (let i = 0; i < 20; i++) {
-      const cube = new TexturedCubeScene();
-      cube.scene.position.z = -i * 10;
-      cube.scene.position.x = i * 10 - 8;
-      this.texturedCubes.push(cube);
+      const asteroid = new Asteroid();
+      asteroid.scene.position.z = -i * 10;
+      asteroid.scene.position.x = i * 10 - 8;
+      this.asteroids.push(asteroid);
     }
 
     this.fpsCounter = new FpsCounterScene();
@@ -47,21 +47,23 @@ export class GameScene extends SceneNode {
     this.scoreLabel = new UI('label', 'scoreLabel');
     this.movesLeftBar.setClass('movesLeftBar');
 
-    this.registerUI(this.scoreLabel);
-    this.registerUI(this.movesLeftBar);
     this.clock = getClock();
   }
 
   onReady(): void {
-    getRootScene().scene.fog = new THREE.Fog(0xffffff, 0, 50);
-    getRootScene().scene.background = new THREE.Color(0xffffff);
+    const root = getRootScene();
+    if (root.scene instanceof THREE.Scene) {
+      root.scene.fog = new THREE.Fog(0xffffff, 0, 50);
+      root.scene.background = new THREE.Color(0xffffff);
+    }
+
     this.addChild(this.fpsCounter);
 
-    this.movesLeftBar.mount();
+    this.movesLeftBar.mount(this);
     this.movesLeftBar.value = 100;
-    this.scoreLabel.mount();
+    this.scoreLabel.mount(this);
 
-    this.texturedCubes.forEach((cube) => {
+    this.asteroids.forEach((cube) => {
       this.addChild(cube);
     });
   }
@@ -113,7 +115,7 @@ export class GameScene extends SceneNode {
 
   gameOver(): void {
     if (this.parent) {
-      this.parent.addChild(new MainMenu());
+      this.parent.addChild(new GameOverMenu(this.score));
       this.destroy();
     }
   }

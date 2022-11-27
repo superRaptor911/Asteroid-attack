@@ -19,11 +19,7 @@ export class MainMenu extends SceneNode {
   }
 
   onReady(): void {
-    this.newGameButton.mount();
-  }
-
-  onRemove(): void {
-    this.newGameButton.unmount();
+    this.newGameButton.mount(this);
   }
 
   onNewGame(): void {

@@ -1,15 +1,12 @@
 import * as THREE from 'three';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
 const textures = {
   crate: 'crate.png',
-  rock1: 'rock1.png',
-  rock2: 'rock2.png',
 };
 
 const models = {
-  rock1: 'rock1.gltf',
-  rock2: 'rock2.gltf',
+  cube: 'cube.gltf',
 };
 
 const textureMap = {};
@@ -39,7 +36,7 @@ export const loadModels = (): void => {
   }
 };
 
-export const getModel = (name: string): THREE.Object3D | null => {
+export const getModel = (name: string): THREE.Mesh | null => {
   if (!modelMap[name]) {
     console.error('ModelMan::getModel: model not found: ' + name);
     return null;

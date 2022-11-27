@@ -1,3 +1,5 @@
+import { BaseNode } from './BaseNode';
+
 export class UI {
   readonly element: HTMLElement;
   parent: HTMLElement | null = null;
@@ -34,7 +36,8 @@ export class UI {
     this.element.style.top = y + 'px';
   }
 
-  mount(parent: HTMLElement = document.body): void {
+  mount(scene: BaseNode, parent: HTMLElement = document.body): void {
+    scene.registerUI(this);
     this.parent = parent;
     parent.appendChild(this.element);
   }

@@ -2,12 +2,11 @@ import * as THREE from 'three';
 import { BaseNode } from './BaseNode';
 
 export class SceneNode extends BaseNode {
-  scene: THREE.Scene;
+  scene: THREE.Object3D;
 
-  constructor(name = '') {
-    name = name || 'SceneNode';
+  constructor(name: string, isRoot = false) {
     super(name);
-    this.scene = new THREE.Scene();
+    this.scene = isRoot ? new THREE.Scene() : new THREE.Object3D();
   }
 
   addChild(child: SceneNode | BaseNode): void {

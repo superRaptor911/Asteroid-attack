@@ -9,11 +9,10 @@ export class FpsCounterScene extends BaseNode {
   constructor() {
     super('FpsCounterScene');
     this.label = new UI('label', 'fpsLabel');
-    this.label.mount();
+    this.label.mount(this);
     this.label.setStyle({
       color: 'red',
     });
-    this.registerUI(this.label);
   }
 
   onReady(): void {

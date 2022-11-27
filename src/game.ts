@@ -11,7 +11,7 @@ const renderer = new THREE.WebGLRenderer();
 const camera = new THREE.PerspectiveCamera(75, Width / Height, 0.1, 1000);
 const keyboardInput = new KeyboardInput();
 const clock = new THREE.Clock();
-const rootScene = new SceneNode();
+const rootScene = new SceneNode('root', true);
 
 export const initGame = (): void => {
   renderer.setSize(Width, Height);

@@ -1,26 +1,22 @@
-import * as THREE from 'three';
-import { getTexture } from '../engine/ResourceMan';
+import { getModel } from '../engine/ResourceMan';
 import { SceneNode } from '../engine/SceneNode';
 import { randRange } from '../engine/utils';
 import { getCamera } from '../game';
 import { GameScene } from './gamescene/gamescene';
 
-export class TexturedCubeScene extends SceneNode {
-  geometry: THREE.BoxGeometry;
-  material: THREE.MeshBasicMaterial;
-  cube: THREE.Mesh;
+export class Asteroid extends SceneNode {
+  scene: THREE.Mesh;
   speed = 8;
   camera: THREE.PerspectiveCamera;
 
-  constructor() {
-    super('TexturedCube');
-    this.geometry = new THREE.BoxGeometry(1, 1, 1);
-    const texture = getTexture('crate');
-    this.material = new THREE.MeshBasicMaterial({
-      map: texture,
-    });
-    this.cube = new THREE.Mesh(this.geometry, this.material);
-    this.scene.add(this.cube);
+  constructor(name = '') {
+    name = name || 'Asteroid';
+    super(name);
+    const scene = getModel('cube');
+    if (scene) {
+      this.scene = scene.clone();
+    }
+
     this.camera = getCamera();
   }
 
@@ -57,7 +53,5 @@ export class TexturedCubeScene extends SceneNode {
 
   destroy(): void {
     super.destroy();
-    this.geometry.dispose();
-    this.material.dispose();
   }
 }
