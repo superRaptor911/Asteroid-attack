@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import { BaseNode } from '../../engine/BaseNode';
 import { KeyboardInput } from '../../engine/KeyboardInput';
 import { SceneNode } from '../../engine/SceneNode';
+import { getStorage, setStorage } from '../../engine/storage';
 import { UI } from '../../engine/UI';
 import { UIProgressBar } from '../../engine/ui/ProgressBar';
 import { float2Int } from '../../engine/utils';
@@ -114,9 +115,11 @@ export class GameScene extends SceneNode {
   }
 
   gameOver(): void {
-    if (this.parent) {
-      this.parent.addChild(new GameOverMenu(this.score));
-      this.destroy();
-    }
+    const highScore: number | undefined = getStorage('highScore');
+    const isHighScore = !highScore || this.score > highScore;
+    if (isHighScore) setStorage('highScore', this.score);
+
+    getRootScene().addChild(new GameOverMenu(this.score, isHighScore));
+    this.destroy();
   }
 }

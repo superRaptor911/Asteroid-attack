@@ -8,6 +8,8 @@ export class Asteroid extends SceneNode {
   scene: THREE.Mesh;
   speed = 8;
   camera: THREE.PerspectiveCamera;
+  maxSpeed = 24;
+  minSpeed = 10;
 
   constructor(name = '') {
     name = name || 'Asteroid';
@@ -31,7 +33,9 @@ export class Asteroid extends SceneNode {
       }
     }
     if (this.scene.position.z > 5) {
-      this.speed = randRange(8, 24);
+      this.maxSpeed++;
+      this.minSpeed++;
+      this.speed = randRange(this.minSpeed, this.maxSpeed);
       this.scene.position.z = -50;
 
       const camPos = this.camera.position;
