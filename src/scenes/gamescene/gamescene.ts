@@ -13,6 +13,7 @@ import {
   getRootScene,
 } from '../../game';
 import { Asteroid } from '../Asteroid';
+import { Dpad } from '../Dpad';
 import { FpsCounterScene } from '../fpsCounter';
 import { GameOverMenu } from '../menus/gameover';
 
@@ -22,6 +23,7 @@ export class GameScene extends SceneNode {
   camera: THREE.PerspectiveCamera;
   keyboardInput: KeyboardInput;
   movesLeftBar = new UIProgressBar();
+  dpad = new Dpad();
   scoreLabel: UI;
   speed = 20;
   score = 0;
@@ -63,6 +65,7 @@ export class GameScene extends SceneNode {
     this.movesLeftBar.mount(this);
     this.movesLeftBar.value = 100;
     this.scoreLabel.mount(this);
+    this.dpad.mount(this);
 
     this.asteroids.forEach((cube) => {
       this.addChild(cube);
@@ -76,19 +79,24 @@ export class GameScene extends SceneNode {
     const canMove = this.movesLeftBar.value > 0;
 
     if (canMove) {
-      if (this.keyboardInput.isKeyDown('a')) {
+      const dpadXValue = this.dpad.value[0];
+      const dpadYValue = this.dpad.value[1];
+      const dpadThreshold = 0.2;
+
+      console.log(dpadXValue, dpadYValue);
+      if (this.keyboardInput.isKeyDown('a') || dpadXValue < -dpadThreshold) {
         this.camera.position.x -= this.speed * delta;
         moved = true;
       }
-      if (this.keyboardInput.isKeyDown('d')) {
+      if (this.keyboardInput.isKeyDown('d') || dpadXValue > dpadThreshold) {
         this.camera.position.x += this.speed * delta;
         moved = true;
       }
-      if (this.keyboardInput.isKeyDown('w')) {
+      if (this.keyboardInput.isKeyDown('w') || dpadYValue < -dpadThreshold) {
         this.camera.position.y += this.speed * delta;
         moved = true;
       }
-      if (this.keyboardInput.isKeyDown('s')) {
+      if (this.keyboardInput.isKeyDown('s') || dpadYValue > dpadThreshold) {
         this.camera.position.y -= this.speed * delta;
         moved = true;
       }
