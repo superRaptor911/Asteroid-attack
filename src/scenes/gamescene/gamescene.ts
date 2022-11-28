@@ -81,7 +81,7 @@ export class GameScene extends SceneNode {
     if (canMove) {
       const dpadXValue = this.dpad.value[0];
       const dpadYValue = this.dpad.value[1];
-      const dpadThreshold = 0.2;
+      const dpadThreshold = 0.1;
 
       console.log(dpadXValue, dpadYValue);
       if (this.keyboardInput.isKeyDown('a') || dpadXValue < -dpadThreshold) {
