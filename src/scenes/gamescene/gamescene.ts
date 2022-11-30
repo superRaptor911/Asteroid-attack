@@ -1,6 +1,4 @@
 import * as THREE from 'three';
-import { BaseNode } from '../../engine/BaseNode';
-import { KeyboardInput } from '../../engine/KeyboardInput';
 import { SceneNode } from '../../engine/SceneNode';
 import { getStorage, setStorage } from '../../engine/storage';
 import { UI } from '../../engine/UI';
@@ -19,23 +17,23 @@ import { GameOverMenu } from '../menus/gameover';
 
 export class GameScene extends SceneNode {
   asteroids: SceneNode[] = [];
-  fpsCounter: BaseNode;
-  camera: THREE.PerspectiveCamera;
-  keyboardInput: KeyboardInput;
-  movesLeftBar = new UIProgressBar();
+  fpsCounter = new FpsCounterScene();
+  camera = getCamera();
+  keyboardInput = getKeyboardInput();
+  clock = getClock();
+
+  staminaBar = new UIProgressBar();
   dpad = new Dpad();
-  scoreLabel: UI;
+  scoreLabel = new UI('label', 'scoreLabel');
+
   speed = 20;
   score = 0;
-  clock: THREE.Clock;
-
   rechargeRate = 0.1;
   lastMoveTime = 0;
   cooldownPeriod = 1;
 
   constructor() {
     super('GameScene');
-
     for (let i = 0; i < 20; i++) {
       const asteroid = new Asteroid();
       asteroid.scene.position.z = -i * 10;
@@ -43,27 +41,20 @@ export class GameScene extends SceneNode {
       this.asteroids.push(asteroid);
     }
 
-    this.fpsCounter = new FpsCounterScene();
-    this.camera = getCamera();
-    this.keyboardInput = getKeyboardInput();
-
-    this.scoreLabel = new UI('label', 'scoreLabel');
-    this.movesLeftBar.setClass('movesLeftBar');
-
-    this.clock = getClock();
+    this.staminaBar.setClass('staminaBar');
   }
 
   onReady(): void {
     const root = getRootScene();
     if (root.scene instanceof THREE.Scene) {
-      root.scene.fog = new THREE.Fog(0xffffff, 0, 50);
-      root.scene.background = new THREE.Color(0xffffff);
+      root.scene.fog = new THREE.Fog(0x87ceeb, 0, 60);
+      root.scene.background = new THREE.Color(0x87ceeb);
     }
 
     this.addChild(this.fpsCounter);
 
-    this.movesLeftBar.mount(this);
-    this.movesLeftBar.value = 100;
+    this.staminaBar.mount(this);
+    this.staminaBar.value = 100;
     this.scoreLabel.mount(this);
     this.dpad.mount(this);
 
@@ -76,14 +67,13 @@ export class GameScene extends SceneNode {
     super.update(delta);
 
     let moved = false;
-    const canMove = this.movesLeftBar.value > 0;
+    const canMove = this.staminaBar.value > 0;
 
     if (canMove) {
       const dpadXValue = this.dpad.value[0];
       const dpadYValue = this.dpad.value[1];
       const dpadThreshold = 0.1;
 
-      console.log(dpadXValue, dpadYValue);
       if (this.keyboardInput.isKeyDown('a') || dpadXValue < -dpadThreshold) {
         this.camera.position.x -= this.speed * delta;
         moved = true;
@@ -103,7 +93,7 @@ export class GameScene extends SceneNode {
     }
 
     if (moved) {
-      this.movesLeftBar.value -= 40 * delta;
+      this.staminaBar.value -= 40 * delta;
       this.lastMoveTime = this.clock.getElapsedTime();
     }
 
@@ -115,7 +105,7 @@ export class GameScene extends SceneNode {
   cooldown(): void {
     const curTime = this.clock.getElapsedTime();
     if (curTime - this.lastMoveTime > this.cooldownPeriod)
-      this.movesLeftBar.value += this.rechargeRate;
+      this.staminaBar.value += this.rechargeRate;
   }
 
   destroy(): void {
