@@ -34,9 +34,9 @@ body {
     left: 0px;
 }
 
-.movesLeftBar {
+.staminaBar {
     position: absolute;
-    top: calc(100% - 50px);
+    top: 50px;
     left: calc(50% - 100px);
     width: 200px;
 }

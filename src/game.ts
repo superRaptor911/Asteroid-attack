@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import { KeyboardInput } from './engine/KeyboardInput';
-import { loadModels, loadTextures } from './engine/ResourceMan';
+import { loadModels, loadSounds, loadTextures } from './engine/ResourceMan';
 import { SceneNode } from './engine/SceneNode';
 
 const gameDiv = document.getElementById('game');
@@ -11,16 +11,8 @@ const renderer = new THREE.WebGLRenderer();
 const camera = new THREE.PerspectiveCamera(75, Width / Height, 0.1, 1000);
 const keyboardInput = new KeyboardInput();
 const clock = new THREE.Clock();
+const audioListener = new THREE.AudioListener();
 const rootScene = new SceneNode('root', true);
-
-export const initGame = (): void => {
-  renderer.setSize(Width, Height);
-  loadTextures();
-  loadModels();
-  camera.position.z = 5;
-  gameDiv?.appendChild(renderer.domElement);
-  document.body.onresize = handleResize;
-};
 
 const handleResize = (): void => {
   Width = gameDiv ? gameDiv.clientWidth : 800;
@@ -29,6 +21,19 @@ const handleResize = (): void => {
   camera.aspect = Width / Height;
   camera.updateProjectionMatrix();
   renderer.setSize(Width, Height);
+};
+
+export const initGame = (): void => {
+  camera.add(audioListener);
+  renderer.setSize(Width, Height);
+
+  loadTextures();
+  loadModels();
+  loadSounds();
+
+  camera.position.z = 5;
+  gameDiv?.appendChild(renderer.domElement);
+  document.body.onresize = handleResize;
 };
 
 export const getCamera = (): THREE.PerspectiveCamera => camera;
@@ -40,6 +45,7 @@ export const getScreenSize = (): { width: number; height: number } => ({
 });
 export const getKeyboardInput = (): KeyboardInput => keyboardInput;
 export const getClock = (): THREE.Clock => clock;
+export const getAudioListener = (): THREE.AudioListener => audioListener;
 
 export const startGame = (): void => {
   let delta = 0;

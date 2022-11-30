@@ -9,8 +9,13 @@ const models = {
   cube: 'cube.gltf',
 };
 
+const sounds = {
+  music: 'theTrain.ogg',
+};
+
 const textureMap = {};
 const modelMap = {};
+const soundMap = {};
 
 export const loadTextures = (): void => {
   const loader = new THREE.TextureLoader();
@@ -42,4 +47,21 @@ export const getModel = (name: string): THREE.Mesh | null => {
     return null;
   }
   return modelMap[name];
+};
+
+export const loadSounds = (): void => {
+  const loader = new THREE.AudioLoader();
+  for (const [name, path] of Object.entries(sounds)) {
+    loader.load('build/assets/sounds/' + path, (buffer) => {
+      soundMap[name] = buffer;
+    });
+  }
+};
+
+export const getSound = (name: string): AudioBuffer | null => {
+  if (!soundMap[name]) {
+    console.error('SoundMan::getSound: sound not found: ' + name);
+    return null;
+  }
+  return soundMap[name];
 };

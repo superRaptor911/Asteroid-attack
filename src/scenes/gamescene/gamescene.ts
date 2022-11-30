@@ -1,10 +1,12 @@
 import * as THREE from 'three';
+import { getSound } from '../../engine/ResourceMan';
 import { SceneNode } from '../../engine/SceneNode';
 import { getStorage, setStorage } from '../../engine/storage';
 import { UI } from '../../engine/UI';
 import { UIProgressBar } from '../../engine/ui/ProgressBar';
 import { float2Int } from '../../engine/utils';
 import {
+  getAudioListener,
   getCamera,
   getClock,
   getKeyboardInput,
@@ -26,6 +28,8 @@ export class GameScene extends SceneNode {
   dpad = new Dpad();
   scoreLabel = new UI('label', 'scoreLabel');
 
+  music = new THREE.Audio(getAudioListener());
+
   speed = 20;
   score = 0;
   rechargeRate = 0.1;
@@ -42,6 +46,12 @@ export class GameScene extends SceneNode {
     }
 
     this.staminaBar.setClass('staminaBar');
+    const musicBuffer = getSound('music');
+    if (musicBuffer) {
+      this.music.setBuffer(musicBuffer);
+      this.music.setVolume(0.5);
+      this.music.setLoop(true);
+    }
   }
 
   onReady(): void {
@@ -61,6 +71,8 @@ export class GameScene extends SceneNode {
     this.asteroids.forEach((cube) => {
       this.addChild(cube);
     });
+
+    this.music.play();
   }
 
   update(delta: number): void {
@@ -110,6 +122,7 @@ export class GameScene extends SceneNode {
 
   destroy(): void {
     super.destroy();
+    this.music.stop();
   }
 
   gameOver(): void {
