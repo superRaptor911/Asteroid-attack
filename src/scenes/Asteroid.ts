@@ -36,7 +36,7 @@ export class Asteroid extends SceneNode {
       this.maxSpeed++;
       this.minSpeed++;
       this.speed = randRange(this.minSpeed, this.maxSpeed);
-      this.scene.position.z = -50;
+      this.scene.position.z = -60;
 
       const camPos = this.camera.position;
       this.scene.position.x = randRange(camPos.x - 5, camPos.x + 5);
