@@ -17,10 +17,17 @@ const textureMap = {};
 const modelMap = {};
 const soundMap = {};
 
-export const loadTextures = (): void => {
+export const loadTextures = async (): Promise<void> => {
   const loader = new THREE.TextureLoader();
-  for (const [name, path] of Object.entries(textures)) {
-    textureMap[name] = loader.load('build/assets/textures/' + path);
+
+  try {
+    for (const [name, path] of Object.entries(textures)) {
+      textureMap[name] = await loader.loadAsync(
+        'build/assets/textures/' + path,
+      );
+    }
+  } catch (e) {
+    console.error('ResourceMan::loadTextures', e);
   }
 };
 
@@ -32,12 +39,15 @@ export const getTexture = (name: string): THREE.Texture | null => {
   return textureMap[name];
 };
 
-export const loadModels = (): void => {
+export const loadModels = async (): Promise<void> => {
   const loader = new GLTFLoader();
-  for (const [name, path] of Object.entries(models)) {
-    loader.load('build/assets/models/' + path, (gltf) => {
-      modelMap[name] = gltf.scene;
-    });
+  try {
+    for (const [name, path] of Object.entries(models)) {
+      modelMap[name] = await loader.loadAsync('build/assets/models/' + path);
+    }
+  } catch (e) {
+    /* handle error */
+    console.error('ResourceMan::loadModels', e);
   }
 };
 
@@ -49,12 +59,15 @@ export const getModel = (name: string): THREE.Mesh | null => {
   return modelMap[name];
 };
 
-export const loadSounds = (): void => {
-  const loader = new THREE.AudioLoader();
-  for (const [name, path] of Object.entries(sounds)) {
-    loader.load('build/assets/sounds/' + path, (buffer) => {
-      soundMap[name] = buffer;
-    });
+export const loadSounds = async (): Promise<void> => {
+  try {
+    const loader = new THREE.AudioLoader();
+    for (const [name, path] of Object.entries(sounds)) {
+      soundMap[name] = await loader.loadAsync('build/assets/sounds/' + path);
+    }
+  } catch (e) {
+    /* handle error */
+    console.error('ResourceMan::loadSounds', e);
   }
 };
 

@@ -23,13 +23,13 @@ const handleResize = (): void => {
   renderer.setSize(Width, Height);
 };
 
-export const initGame = (): void => {
+export const initGame = async (): Promise<void> => {
   camera.add(audioListener);
   renderer.setSize(Width, Height);
 
-  loadTextures();
-  loadModels();
-  loadSounds();
+  await loadTextures();
+  await loadModels();
+  await loadSounds();
 
   camera.position.z = 5;
   gameDiv?.appendChild(renderer.domElement);
