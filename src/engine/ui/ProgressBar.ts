@@ -1,7 +1,7 @@
 import { UI } from '../UI';
 
 export class UIProgressBar extends UI {
-  element: HTMLProgressElement;
+  declare element: HTMLProgressElement;
   _min: number;
   _max: number;
   _value: number;

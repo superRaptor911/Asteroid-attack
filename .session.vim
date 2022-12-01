@@ -17,8 +17,8 @@ badd +5 index.html
 badd +2 src/main.ts
 badd +15 src/engine/SceneNode.ts
 badd +27 src/scenes/TeturedCube.ts
-badd +9 src/engine/ResourceMan.ts
-badd +45 src/game.ts
+badd +26 src/engine/ResourceMan.ts
+badd +29 src/game.ts
 badd +81 src/style.css
 badd +16 src/scenes/fpsCounter.ts
 badd +82 src/engine/BaseNode.ts
@@ -27,7 +27,7 @@ badd +40 src/engine/UI.ts
 badd +7 src/engine/utils.ts
 badd +9 src/engine/ui/ProgressBar.ts
 badd +5 src/engine/ui/Button.ts
-badd +117 src/scenes/gamescene/gamescene.ts
+badd +88 src/scenes/gamescene/gamescene.ts
 badd +8 src/scenes/Asteroid.ts
 badd +11 src/scenes/menus/mainmenu.ts
 badd +49 src/scenes/menus/gameover.ts
@@ -37,12 +37,12 @@ argglobal
 %argdel
 edit src/scenes/gamescene/gamescene.ts
 argglobal
-balt src/engine/BaseNode.ts
-let s:l = 115 - ((26 * winheight(0) + 18) / 37)
+balt src/scenes/fpsCounter.ts
+let s:l = 128 - ((36 * winheight(0) + 18) / 37)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 115
+keepjumps 128
 normal! 03|
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'

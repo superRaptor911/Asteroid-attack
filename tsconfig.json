@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
-    "target": "es6",
-    "module": "es6",
-    "lib": ["dom", "es2018"],
+    "target": "es2022",
+    "module": "es2022",
+    "lib": ["dom", "es2020"],
     "moduleResolution": "node",
     "rootDir": ".",
     "outDir": "build",

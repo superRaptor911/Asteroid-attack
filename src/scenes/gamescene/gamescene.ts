@@ -35,12 +35,14 @@ export class GameScene extends SceneNode {
   rechargeRate = 0.1;
   lastMoveTime = 0;
   cooldownPeriod = 1;
+  scoreInterval: NodeJS.Timer;
 
   constructor() {
     super('GameScene');
     for (let i = 0; i < 20; i++) {
       const asteroid = new Asteroid();
       asteroid.scene.position.z = -i * 10;
+
       asteroid.scene.position.x = i * 10 - 8;
       this.asteroids.push(asteroid);
     }
@@ -52,6 +54,11 @@ export class GameScene extends SceneNode {
       this.music.setVolume(0.5);
       this.music.setLoop(true);
     }
+
+    this.scoreInterval = setInterval(
+      this.onScoreIntervalTimeout.bind(this),
+      1000,
+    );
   }
 
   onReady(): void {
@@ -82,26 +89,7 @@ export class GameScene extends SceneNode {
     const canMove = this.staminaBar.value > 0;
 
     if (canMove) {
-      const dpadXValue = this.dpad.value[0];
-      const dpadYValue = this.dpad.value[1];
-      const dpadThreshold = 0.1;
-
-      if (this.keyboardInput.isKeyDown('a') || dpadXValue < -dpadThreshold) {
-        this.camera.position.x -= this.speed * delta;
-        moved = true;
-      }
-      if (this.keyboardInput.isKeyDown('d') || dpadXValue > dpadThreshold) {
-        this.camera.position.x += this.speed * delta;
-        moved = true;
-      }
-      if (this.keyboardInput.isKeyDown('w') || dpadYValue < -dpadThreshold) {
-        this.camera.position.y += this.speed * delta;
-        moved = true;
-      }
-      if (this.keyboardInput.isKeyDown('s') || dpadYValue > dpadThreshold) {
-        this.camera.position.y -= this.speed * delta;
-        moved = true;
-      }
+      moved = this.handleInput(delta);
     }
 
     if (moved) {
@@ -111,7 +99,32 @@ export class GameScene extends SceneNode {
 
     this.cooldown();
     this.scoreLabel.setText('Score: ' + float2Int(this.score));
-    this.score += 0.1;
+  }
+
+  handleInput(delta: number): boolean {
+    const dpadXValue = this.dpad.value[0];
+    const dpadYValue = this.dpad.value[1];
+    const dpadThreshold = 0.1;
+
+    let moved = false;
+    if (this.keyboardInput.isKeyDown('a') || dpadXValue < -dpadThreshold) {
+      this.camera.position.x -= this.speed * delta;
+      moved = true;
+    }
+    if (this.keyboardInput.isKeyDown('d') || dpadXValue > dpadThreshold) {
+      this.camera.position.x += this.speed * delta;
+      moved = true;
+    }
+    if (this.keyboardInput.isKeyDown('w') || dpadYValue < -dpadThreshold) {
+      this.camera.position.y += this.speed * delta;
+      moved = true;
+    }
+    if (this.keyboardInput.isKeyDown('s') || dpadYValue > dpadThreshold) {
+      this.camera.position.y -= this.speed * delta;
+      moved = true;
+    }
+
+    return moved;
   }
 
   cooldown(): void {
@@ -120,9 +133,14 @@ export class GameScene extends SceneNode {
       this.staminaBar.value += this.rechargeRate;
   }
 
+  onScoreIntervalTimeout(): void {
+    this.score += 100;
+  }
+
   destroy(): void {
     super.destroy();
     this.music.stop();
+    clearInterval(this.scoreInterval);
   }
 
   gameOver(): void {

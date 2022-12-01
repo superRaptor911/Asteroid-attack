@@ -5,7 +5,7 @@ import { getCamera } from '../game';
 import { GameScene } from './gamescene/gamescene';
 
 export class Asteroid extends SceneNode {
-  scene: THREE.Mesh;
+  declare scene: THREE.Mesh;
   speed = 8;
   camera: THREE.PerspectiveCamera;
   maxSpeed = 24;
