@@ -23,17 +23,19 @@ const handleResize = (): void => {
   renderer.setSize(Width, Height);
 };
 
-export const initGame = async (): Promise<void> => {
+export const initRenderer = (): void => {
   camera.add(audioListener);
   renderer.setSize(Width, Height);
-
-  await loadTextures();
-  await loadModels();
-  await loadSounds();
 
   camera.position.z = 5;
   gameDiv?.appendChild(renderer.domElement);
   document.body.onresize = handleResize;
+};
+
+export const loadResources = async (): Promise<void> => {
+  await loadTextures();
+  await loadModels();
+  await loadSounds();
 };
 
 export const getCamera = (): THREE.PerspectiveCamera => camera;
