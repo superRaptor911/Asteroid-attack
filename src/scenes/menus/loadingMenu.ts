@@ -1,7 +1,6 @@
 import * as THREE from 'three';
 import { SceneNode } from '../../engine/SceneNode';
 import { UI } from '../../engine/UI';
-import { UIProgressBar } from '../../engine/ui/ProgressBar';
 import { getRootScene, loadResources } from '../../game';
 import { MainMenu } from './mainmenu';
 
