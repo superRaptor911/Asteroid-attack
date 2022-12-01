@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import { GLTF, GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
 const textures = {
   crate: 'crate.png',
@@ -51,7 +51,7 @@ export const loadModels = async (): Promise<void> => {
   }
 };
 
-export const getModel = (name: string): THREE.Mesh | null => {
+export const getModel = (name: string): GLTF | null => {
   if (!modelMap[name]) {
     console.error('ModelMan::getModel: model not found: ' + name);
     return null;

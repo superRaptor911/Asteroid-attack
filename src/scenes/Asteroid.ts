@@ -5,7 +5,7 @@ import { getCamera } from '../game';
 import { GameScene } from './gamescene/gamescene';
 
 export class Asteroid extends SceneNode {
-  declare scene: THREE.Mesh;
+  declare scene: THREE.Object3D;
   speed = 8;
   camera: THREE.PerspectiveCamera;
   maxSpeed = 24;
@@ -14,9 +14,9 @@ export class Asteroid extends SceneNode {
   constructor(name = '') {
     name = name || 'Asteroid';
     super(name);
-    const scene = getModel('cube');
-    if (scene) {
-      this.scene = scene.clone();
+    const mdl = getModel('cube');
+    if (mdl) {
+      this.scene = mdl.scene.clone();
     }
 
     this.camera = getCamera();

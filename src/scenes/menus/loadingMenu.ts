@@ -1,3 +1,4 @@
+import * as THREE from 'three';
 import { SceneNode } from '../../engine/SceneNode';
 import { UI } from '../../engine/UI';
 import { UIProgressBar } from '../../engine/ui/ProgressBar';
@@ -6,14 +7,18 @@ import { MainMenu } from './mainmenu';
 
 export class LoadingMenu extends SceneNode {
   label = new UI('label', 'loadingLabel');
-  progressBar = new UIProgressBar();
   constructor() {
     super('LoadingMenu');
+    this.label.setText('Loading...');
   }
 
   onReady(): void {
     this.label.mount(this);
-    this.progressBar.mount(this);
+
+    const root = getRootScene();
+    if (root.scene instanceof THREE.Scene) {
+      root.scene.background = new THREE.Color(0x5f5ba6);
+    }
     loadResources().then(this.onLoadComplete.bind(this));
   }
 
