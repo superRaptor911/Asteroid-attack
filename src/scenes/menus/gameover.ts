@@ -4,6 +4,7 @@ import { UI } from '../../engine/UI';
 import { UIButton } from '../../engine/ui/Button';
 import { float2Int } from '../../engine/utils';
 import { getRootScene } from '../../game';
+import { updateHighScoreInTelegram } from '../../telegram';
 import { MainMenu } from './mainmenu';
 
 export class GameOverMenu extends BaseNode {
@@ -26,6 +27,8 @@ export class GameOverMenu extends BaseNode {
 
     if (!isHighScore) {
       this.highScoreLabel.hide();
+    } else {
+      updateHighScoreInTelegram(float2Int(score));
     }
   }
 
