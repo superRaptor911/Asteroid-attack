@@ -5,3 +5,12 @@ export const randRange = (a: number, b: number): number => {
 export const float2Int = (a: number): number => {
   return a < 0 ? Math.ceil(a) : a | 0;
 };
+
+export const urlToParamsObject = (url: string): Record<string, string> => {
+  const params: Record<string, string> = {};
+  const urlParams = new URLSearchParams(url);
+  urlParams.forEach((value, key) => {
+    params[key] = value;
+  });
+  return params;
+};
