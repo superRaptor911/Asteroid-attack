@@ -8,7 +8,8 @@ interface TelegramData {
   score: string;
 }
 
-const gameServer = 'http://127.0.0.1:3000/';
+// const gameServer = 'http://127.0.0.1:3000/';
+const gameServer = 'https://telegram-game-bot-production.up.railway.app/';
 const gameShortName = 'AsteroidAttk';
 
 export const initTelegramData = (): void => {
