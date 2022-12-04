@@ -30,7 +30,7 @@ export class Dpad extends UI {
       width: '70px',
       height: '70px',
       borderRadius: '35px',
-      backgroundColor: 'rgba(0, 0, 0, 0.5)',
+      backgroundColor: 'rgba(255, 255, 255, 0.9)',
     };
 
     Object.assign(this.innerCircle.style, innerCircleStyle);

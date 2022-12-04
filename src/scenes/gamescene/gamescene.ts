@@ -16,6 +16,7 @@ import { Asteroid } from '../Asteroid';
 import { Dpad } from '../Dpad';
 import { FpsCounterScene } from '../fpsCounter';
 import { GameOverMenu } from '../menus/gameover';
+import { Stars } from '../stars';
 
 export class GameScene extends SceneNode {
   asteroids: SceneNode[] = [];
@@ -23,6 +24,7 @@ export class GameScene extends SceneNode {
   camera = getCamera();
   keyboardInput = getKeyboardInput();
   clock = getClock();
+  stars = new Stars();
 
   staminaBar = new UIProgressBar();
   dpad = new Dpad();
@@ -64,8 +66,8 @@ export class GameScene extends SceneNode {
   onReady(): void {
     const root = getRootScene();
     if (root.scene instanceof THREE.Scene) {
-      root.scene.fog = new THREE.Fog(0x87ceeb, 0, 60);
-      root.scene.background = new THREE.Color(0x87ceeb);
+      root.scene.fog = new THREE.Fog(0x000000, 0, 60);
+      root.scene.background = new THREE.Color(0x000000);
     }
 
     this.addChild(this.fpsCounter);
@@ -78,6 +80,8 @@ export class GameScene extends SceneNode {
     this.asteroids.forEach((cube) => {
       this.addChild(cube);
     });
+
+    getCamera().add(this.stars.scene);
 
     this.music.play();
   }
@@ -140,6 +144,8 @@ export class GameScene extends SceneNode {
   destroy(): void {
     super.destroy();
     this.music.stop();
+    getCamera().remove(this.stars.scene);
+    this.stars.destroy();
     clearInterval(this.scoreInterval);
   }
 

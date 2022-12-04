@@ -26,6 +26,7 @@ const handleResize = (): void => {
 export const initRenderer = (): void => {
   camera.add(audioListener);
   renderer.setSize(Width, Height);
+  rootScene.scene.add(camera);
 
   camera.position.z = 5;
   gameDiv?.appendChild(renderer.domElement);
