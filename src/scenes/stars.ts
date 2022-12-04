@@ -1,9 +1,7 @@
 import * as THREE from 'three';
-import { getTexture } from '../engine/ResourceMan';
 import { SceneNode } from '../engine/SceneNode';
 import { randRange } from '../engine/utils';
 import { getCamera, getScreenSize } from '../game';
-// import { getScreenSize } from '../game';
 
 export class Stars extends SceneNode {
   material: THREE.MeshBasicMaterial;
@@ -11,8 +9,10 @@ export class Stars extends SceneNode {
   constructor(count = 20) {
     super('Stars');
 
-    const texture = getTexture('star');
-    this.material = new THREE.MeshBasicMaterial({ fog: false, map: texture });
+    this.material = new THREE.MeshBasicMaterial({
+      fog: false,
+      color: 0xffffff,
+    });
     this.geometry = new THREE.BufferGeometry();
 
     const vertices = [

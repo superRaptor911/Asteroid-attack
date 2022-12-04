@@ -3,7 +3,6 @@ import { GLTF, GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
 const textures = {
   crate: 'crate.png',
-  star: 'star.png',
 };
 
 const models = {
