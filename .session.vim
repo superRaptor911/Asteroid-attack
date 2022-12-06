@@ -16,8 +16,8 @@ endif
 badd +4 src/main.ts
 badd +25 src/engine/SceneNode.ts
 badd +27 src/scenes/TeturedCube.ts
-badd +6 src/engine/ResourceMan.ts
-badd +41 src/game.ts
+badd +29 src/engine/ResourceMan.ts
+badd +67 src/game.ts
 badd +36 src/style.css
 badd +16 src/scenes/fpsCounter.ts
 badd +40 src/engine/KeyboardInput.ts
@@ -32,17 +32,18 @@ badd +49 src/scenes/menus/gameover.ts
 badd +9 src/engine/storage.ts
 badd +33 src/scenes/Dpad.ts
 badd +31 src/scenes/stars.ts
+badd +32 src/scenes/menus/loadingMenu.ts
 argglobal
 %argdel
-edit src/style.css
+edit src/game.ts
 argglobal
-balt src/scenes/stars.ts
-let s:l = 36 - ((4 * winheight(0) + 18) / 37)
+balt src/engine/ResourceMan.ts
+let s:l = 67 - ((36 * winheight(0) + 18) / 37)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 36
-normal! 019|
+keepjumps 67
+normal! 02|
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
