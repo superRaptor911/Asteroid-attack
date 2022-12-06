@@ -19,17 +19,9 @@ export class LoadingMenu extends SceneNode {
       root.scene.background = new THREE.Color(0x5f5ba6);
     }
 
-    const textures = {
-      crate: 'crate.png',
-    };
-
-    const models = {
-      cube: 'cube.gltf',
-    };
-
-    const sounds = {
-      music: 'theTrain.ogg',
-    };
+    const textures = [{ name: 'crate', path: 'crate.png' }];
+    const models = [{ name: 'cube', path: 'cube.gltf' }];
+    const sounds = [{ name: 'music', path: 'theTrain.ogg' }];
 
     loadResources({ textures, models, sounds }).then(
       this.onLoadComplete.bind(this),
