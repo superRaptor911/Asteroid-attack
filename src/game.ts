@@ -33,10 +33,14 @@ export const initRenderer = (): void => {
   document.body.onresize = handleResize;
 };
 
-export const loadResources = async (): Promise<void> => {
-  await loadTextures();
-  await loadModels();
-  await loadSounds();
+export const loadResources = async ({
+  textures,
+  models,
+  sounds,
+}): Promise<void> => {
+  await loadTextures(textures);
+  await loadModels(models);
+  await loadSounds(sounds);
 };
 
 export const getCamera = (): THREE.PerspectiveCamera => camera;
